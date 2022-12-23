@@ -34,7 +34,7 @@ impl fmt::Display for OutOfRangeError {
 
 impl BitArray {
     fn new(size: u64) -> Self {
-        let _capacity: usize = (size / ONE_BYTE_DIGITS_COUNT as u64) as usize;
+        let _capacity: usize = (size / ONE_BYTE_BITS_COUNT as u64) as usize;
         let mut bit_array: Vec<u8> = Vec::with_capacity(_capacity);
 
         for _ in 0.._capacity {
@@ -48,8 +48,8 @@ impl BitArray {
         if position >= self.size {
             Err(OutOfRangeError::new(self.size, position))
         } else {
-            let chunk: u64 = position / ONE_BYTE_DIGITS_COUNT as u64;
-            let pow: u64 = position % ONE_BYTE_DIGITS_COUNT as u64;
+            let chunk: u64 = position / ONE_BYTE_BITS_COUNT as u64;
+            let pow: u64 = position % ONE_BYTE_BITS_COUNT as u64;
             let offset: u8 = 2u64.pow(pow as u32) as u8;
 
             println!("chunk: {}, offset: {}, pow: {}", chunk, offset, pow);
@@ -68,8 +68,8 @@ impl BitArray {
         if position >= self.size {
             Err(OutOfRangeError::new(self.size, position))
         } else {
-            let chunk: u64 = position / ONE_BYTE_DIGITS_COUNT as u64;
-            let pow: u64 = position % ONE_BYTE_DIGITS_COUNT as u64;
+            let chunk: u64 = position / ONE_BYTE_BITS_COUNT as u64;
+            let pow: u64 = position % ONE_BYTE_BITS_COUNT as u64;
             let offset: u8 = 2u64.pow(pow as u32) as u8;
 
             Ok(self.bit_array[chunk as usize] == (self.bit_array[chunk as usize] | offset))
