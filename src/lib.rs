@@ -5,18 +5,18 @@ use std::fmt;
 const ONE_BYTE_BITS_COUNT: i8 = 8;
 
 #[derive(Debug)]
-struct BitArray {
-    size: i64,
-    bit_array: Vec<u8>,
+pub struct BitArray {
+    pub size: i64,
+    pub bit_array: Vec<u8>,
 }
 #[derive(Clone, Debug)]
-struct OutOfRangeError {
-    bitarray_size: i64,
-    bitarray_position: i64,
+pub struct OutOfRangeError {
+    pub bitarray_size: i64,
+    pub bitarray_position: i64,
 }
 
 impl OutOfRangeError {
-    fn new(bitarray_size: i64, bitarray_position: i64) -> Self {
+    pub fn new(bitarray_size: i64, bitarray_position: i64) -> Self {
         Self {
             bitarray_size,
             bitarray_position,
@@ -35,7 +35,7 @@ impl fmt::Display for OutOfRangeError {
 }
 
 impl BitArray {
-    fn new(size: i64) -> Self {
+    pub fn new(size: i64) -> Self {
         let _capacity: usize = (size / ONE_BYTE_BITS_COUNT as i64) as usize + 1;
         let mut bit_array: Vec<u8> = Vec::with_capacity(_capacity);
 
@@ -56,7 +56,7 @@ impl BitArray {
         2u64.pow(_pow as u32) as u8
     }
 
-    fn set(&mut self, position: i64, flag: bool) -> Result<(), OutOfRangeError> {
+    pub fn set(&mut self, position: i64, flag: bool) -> Result<(), OutOfRangeError> {
         if position >= self.size {
             Err(OutOfRangeError::new(self.size, position as i64))
         } else {
@@ -73,7 +73,7 @@ impl BitArray {
         }
     }
 
-    fn get(&self, position: i64) -> Result<bool, OutOfRangeError> {
+    pub fn get(&self, position: i64) -> Result<bool, OutOfRangeError> {
         if position >= self.size {
             Err(OutOfRangeError::new(self.size, position))
         } else {
