@@ -1,3 +1,5 @@
+#![allow(dead_code, unused_variables)]
+
 use std::fmt;
 
 const ONE_BYTE_BITS_COUNT: i8 = 8;
@@ -44,28 +46,8 @@ impl BitArray {
         Self { size, bit_array }
     }
 
-    fn set(&mut self, position: i64, flag: bool) -> Result<(), OutOfRangeError> {
-        if position >= self.size {
-            Err(OutOfRangeError::new(self.size, position as i64))
-        } else {
-            let chunk: i64 = position as i64 / ONE_BYTE_BITS_COUNT as i64;
-            let pow: i64 = position as i64 % ONE_BYTE_BITS_COUNT as i64;
-            let offset: u8 = 2u64.pow(pow as u32) as u8;
-
-            println!("chunk: {}, offset: {}, pow: {}", chunk, offset, pow);
-
-            if flag {
-                self.bit_array[chunk as usize] |= offset;
-            } else {
-                self.bit_array[chunk as usize] &= !offset;
-            }
-
-            Ok(())
-        }
-    }
-
-    fn calc_vec_position(position: i64) -> i64 {
-        position / ONE_BYTE_BITS_COUNT as i64
+    fn calc_vec_position(position: i64) -> usize {
+        (position / ONE_BYTE_BITS_COUNT as i64) as usize
     }
 
     fn calc_byte_offset(position: i64) -> u8 {
@@ -74,15 +56,31 @@ impl BitArray {
         2u64.pow(_pow as u32) as u8
     }
 
+    fn set(&mut self, position: i64, flag: bool) -> Result<(), OutOfRangeError> {
+        if position >= self.size {
+            Err(OutOfRangeError::new(self.size, position as i64))
+        } else {
+            let vec_position: usize = Self::calc_vec_position(position);
+            let byte_offset: u8 = Self::calc_byte_offset(position);
+
+            if flag {
+                self.bit_array[vec_position] |= byte_offset;
+            } else {
+                self.bit_array[vec_position] &= !byte_offset;
+            }
+
+            Ok(())
+        }
+    }
+
     fn get(&self, position: i64) -> Result<bool, OutOfRangeError> {
         if position >= self.size {
             Err(OutOfRangeError::new(self.size, position))
         } else {
-            let chunk: u64 = position as u64 / ONE_BYTE_BITS_COUNT as u64;
-            let pow: u64 = position as u64 % ONE_BYTE_BITS_COUNT as u64;
-            let offset: u8 = 2u64.pow(pow as u32) as u8;
+            let vec_position: usize = Self::calc_vec_position(position);
+            let byte_offset: u8 = Self::calc_byte_offset(position);
 
-            Ok(self.bit_array[chunk as usize] == (self.bit_array[chunk as usize] | offset))
+            Ok(self.bit_array[vec_position] == (self.bit_array[vec_position] | byte_offset))
         }
     }
 }
