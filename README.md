@@ -36,5 +36,5 @@ let mut bitarray: BitArray = BitArray::new(bitarray_size);
 
 bitarray.set(12, true).unwrap();
 
-bitarray_value: bool = bitarray.get(12).unwrap();
+let bitarray_value: bool = bitarray.get(12).unwrap();
 ```
