@@ -2,6 +2,8 @@
 
 use std::fmt;
 
+use serde::{Deserialize, Serialize};
+
 /// A constant to describe the number of bits in one byte.
 /// Defined just to improve readability.
 const ONE_BYTE_BITS_COUNT: i8 = 8;
@@ -43,7 +45,7 @@ impl fmt::Display for OutOfRangeError {
 /// "bit_array" - The vector of 8 bit integer used to represent bits
 ///               where each 8 bits are packed in every 8 bit integer.
 /// ```rust
-/// use bitarray::BitArray;
+/// use bitarray_naive::BitArray;
 ///
 /// let bitarray_size: i64 = 9999;
 ///
@@ -53,7 +55,7 @@ impl fmt::Display for OutOfRangeError {
 ///
 /// assert_eq!(bitarray.get(12).unwrap(), true);
 /// ```
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct BitArray {
     pub size: i64,
     pub bit_array: Vec<u8>,

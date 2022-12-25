@@ -1,6 +1,6 @@
 [package]
-name = "bitarray"
-version = "0.1.0"
+name = "bitarray-naive"
+version = "0.1.1"
 edition = "2021"
 description = "The simple and naive rust implementation of a bitarray."
 license-file = "LICENSE"
@@ -8,3 +8,4 @@ repository = "https://github.com/obakhmach/bitarray"
 
 
 [dependencies]
+serde = {version = "1.0.151", features = ["derive"]}
