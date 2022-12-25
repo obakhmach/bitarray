@@ -1,5 +1,5 @@
 [package]
-name = "bitarray"
+name = "bitarray-naive"
 version = "0.1.0"
 edition = "2021"
 description = "The simple and naive rust implementation of a bitarray."
