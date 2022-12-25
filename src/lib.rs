@@ -45,7 +45,7 @@ impl fmt::Display for OutOfRangeError {
 /// "bit_array" - The vector of 8 bit integer used to represent bits
 ///               where each 8 bits are packed in every 8 bit integer.
 /// ```rust
-/// use bitarray::BitArray;
+/// use bitarray_naive::BitArray;
 ///
 /// let bitarray_size: i64 = 9999;
 ///
