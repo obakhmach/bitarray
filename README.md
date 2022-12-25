@@ -6,7 +6,7 @@ The simple and naive rust implementation of a bit array.
 ```yaml
 [dependencies]
 ...
-bitarray = { git = "https://github.com/obakhmach/bitarray", branch = "<desired-branch>", version = "<desired-version>"}
+bitarray-naive = { git = "https://github.com/obakhmach/bitarray", branch = "<desired-branch>", version = "<desired-version>"}
 ```
 
 For example for dev branch with version 0.1.0 the dependecy will look the following.
@@ -14,7 +14,7 @@ For example for dev branch with version 0.1.0 the dependecy will look the follow
 ```yaml
 [dependencies]
 ...
-bitarray = { git = "https://github.com/obakhmach/bitarray", branch = "dev", version = "0.1.0"}
+bitarray-naive = { git = "https://github.com/obakhmach/bitarray", branch = "dev", version = "0.1.0"}
 ```
 
 Or as a registered create
@@ -22,13 +22,13 @@ Or as a registered create
 ```yaml
 [dependencies]
 ...
-bitarray = "0.1.0"
+bitarray-naive = "0.1.0"
 ```
 
 ## Usage
 
 ```rust
-use bitarray::BitArray;
+use bitarray_naive::BitArray;
 
 let bitarray_size: i64 = 9999;
 
